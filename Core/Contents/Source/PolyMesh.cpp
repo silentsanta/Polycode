@@ -606,13 +606,12 @@ namespace Polycode {
 		setMeshType(Mesh::TRI_MESH);
 		Number lastx = -1;
 		Number lastz = -1;		
-		bool secondPassOrGreater = false;
 		for (int i=0 ; i < numSegments+1; i++) {
 			Number pos = ((PI*2.0)/((Number)numSegments)) * i;
 			Number x = sinf(pos) * radius;
 			Number z = cosf(pos) * radius;
 			
-			if(secondPassOrGreater) {
+			if(i > 0) { // ie only construct faces one we have vertexes from i-1 to use.
 				Polygon *polygon = new Polygon();
 				polygon->addVertex(lastx,0,lastz,0,0);				
 				polygon->addVertex(x,0,z, 1, 0);
@@ -630,7 +629,6 @@ namespace Polycode {
 			}
 			lastx = x;
 			lastz = z;	
-			secondPassOrGreater = true;
 		/*
 			Polygon *polygon = new Polygon();
 			polygon->addVertex(w,0,h, 1, 1);
