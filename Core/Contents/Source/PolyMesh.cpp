@@ -606,12 +606,13 @@ namespace Polycode {
 		setMeshType(Mesh::TRI_MESH);
 		Number lastx = -1;
 		Number lastz = -1;		
+		bool firstPass = true;
 		for (int i=0 ; i < numSegments+1; i++) {
 			Number pos = ((PI*2.0)/((Number)numSegments)) * i;
 			Number x = sinf(pos) * radius;
 			Number z = cosf(pos) * radius;
 			
-			if(lastx > -1) {
+			if(!firstPass) {
 				Polygon *polygon = new Polygon();
 				polygon->addVertex(lastx,0,lastz,0,0);				
 				polygon->addVertex(x,0,z, 1, 0);
@@ -628,7 +629,8 @@ namespace Polycode {
 								
 			}
 			lastx = x;
-			lastz = z;			
+			lastz = z;	
+			firstPass = false;
 		/*
 			Polygon *polygon = new Polygon();
 			polygon->addVertex(w,0,h, 1, 1);
